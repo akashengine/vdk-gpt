@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 # Configuration and Setup
 st.set_page_config(page_title="VDK GPT", layout="wide")
