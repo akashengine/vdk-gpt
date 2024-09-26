@@ -12,14 +12,11 @@ def load_css():
 # Main App
 def main():
     load_css()
-
     # Initialize session state
     if 'selected_video' not in st.session_state:
         st.session_state.selected_video = None
-
     # Main Page
     st.title("VDK GPT")
-
     videos = [
         ("UvNNCdSHZ_A", "Jain Philosophy: An Introduction"),
         ("8mxDiefPrcc", "Challenges of Parenting"),
@@ -27,7 +24,6 @@ def main():
         ("ALuyrcNfNRM", "Why Dr. Ambedkar is Great?"),
         ("ISRQ7djT3uw", "Sikkim Youth Convention 2023")
     ]
-
     if not st.session_state.selected_video:
         cols = st.columns(3)
         for idx, (video_id, title) in enumerate(videos):
@@ -44,16 +40,32 @@ def main():
             <iframe width="100%" height="500" src="https://www.youtube.com/embed/{video_id}" title="Ep : 5 I Jain Philosophy: An Introduction I Dr Vikas Divyakirti" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             """, unsafe_allow_html=True)
             
-            # Embed Flowise chatbot
+            # Embed Flowise chatbot for Jain Philosophy
             components.html("""
             <flowise-fullchatbot></flowise-fullchatbot>
-                <script type="module">
-                    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
-                    Chatbot.initFull({
-                        chatflowid: "702cbec9-9451-45f4-ad59-190d060990db",
-                        apiHost: "https://bot.frontbencher.in",
-                    })
-                </script>
+            <script type="module">
+                import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+                Chatbot.initFull({
+                    chatflowid: "702cbec9-9451-45f4-ad59-190d060990db",
+                    apiHost: "https://bot.frontbencher.in",
+                })
+            </script>
+            """, height=600)
+        elif video_id == "fbgKj0myUOk":  # The Art of Letting Go
+            st.markdown(f"""
+            <iframe width="100%" height="500" src="https://www.youtube.com/embed/{video_id}" title="The Art of Letting Go | Dr Vikas Divyakirti" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            """, unsafe_allow_html=True)
+            
+            # Embed Flowise chatbot for The Art of Letting Go
+            components.html("""
+            <flowise-fullchatbot></flowise-fullchatbot>
+            <script type="module">
+                import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+                Chatbot.initFull({
+                    chatflowid: "991ef5f3-2e59-4ece-943f-b2cee45bcd1c",
+                    apiHost: "https://bot.frontbencher.in",
+                })
+            </script>
             """, height=600)
         else:
             st.video(f"https://youtu.be/{video_id}")
@@ -72,7 +84,6 @@ def main():
                 st.subheader("Ask any Doubt")
                 st.text_input("Enter your question")
                 st.button("Ask")
-
         if st.button("Back to Videos"):
             st.session_state.selected_video = None
             st.rerun()
