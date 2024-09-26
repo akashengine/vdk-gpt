@@ -47,13 +47,13 @@ def main():
             # Embed Flowise chatbot
             components.html("""
             <flowise-fullchatbot></flowise-fullchatbot>
-            <script type="module">
-                import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
-                Chatbot.initFull({
-                    chatflowid: "702cbec9-9451-45f4-ad59-190d060990db",
-                    apiHost: "https://bot.frontbencher.in",
-                })
-            </script>
+                <script type="module">
+                    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+                    Chatbot.initFull({
+                        chatflowid: "702cbec9-9451-45f4-ad59-190d060990db",
+                        apiHost: "https://bot.frontbencher.in",
+                    })
+                </script>
             """, height=600)
         else:
             st.video(f"https://youtu.be/{video_id}")
