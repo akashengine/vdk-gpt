@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_javascript import st_javascript
 
 # Configuration and Setup
 st.set_page_config(page_title="VDK GPT", layout="wide")
@@ -8,15 +7,6 @@ st.set_page_config(page_title="VDK GPT", layout="wide")
 def load_css():
     with open("style.css") as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-def render_video_thumbnail(video_id, title):
-    thumbnail_url = f"https://img.youtube.com/vi/{video_id}/0.jpg"
-    return f"""
-    <div class="video-thumbnail" onclick="selectVideo('{video_id}')">
-        <img src="{thumbnail_url}" alt="{title}">
-        <p>{title}</p>
-    </div>
-    """
 
 # Main App
 def main():
@@ -41,32 +31,15 @@ def main():
         cols = st.columns(3)
         for idx, (video_id, title) in enumerate(videos):
             with cols[idx % 3]:
-                st.markdown(render_video_thumbnail(video_id, title), unsafe_allow_html=True)
-        
-        # JavaScript to handle video selection
-        st.markdown("""
-        <script>
-        function selectVideo(videoId) {
-            window.selectedVideo = videoId;
-            setTimeout(() => {
-                window.parent.postMessage({type: 'streamlit:setComponentValue', value: videoId}, '*');
-            }, 100);
-        }
-        </script>
-        """, unsafe_allow_html=True)
-
-        # Check if a video was selected
-        selected_video = st_javascript("window.selectedVideo")
-        if selected_video:
-            st.session_state.selected_video = selected_video
-            st.rerun()
+                st.image(f"https://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
+                if st.button(title, key=f"btn_{video_id}"):
+                    st.session_state.selected_video = video_id
+                    st.rerun()
 
     # Video Interaction Page
     else:
         video_id = st.session_state.selected_video
-        st.markdown(f"""
-        <iframe width="100%" height="500" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        """, unsafe_allow_html=True)
+        st.video(f"https://youtu.be/{video_id}")
 
         tab1, tab2, tab3 = st.tabs(["Summarize", "Quiz Me", "Ask any Doubt"])
 
