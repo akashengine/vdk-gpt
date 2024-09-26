@@ -37,7 +37,7 @@ def main():
                     st.rerun()
 
     # Video Interaction Page
-    else:
+else:
     video_id = st.session_state.selected_video
     
     if video_id == "UvNNCdSHZ_A":  # Jain Philosophy: An Introduction
